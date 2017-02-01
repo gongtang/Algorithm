@@ -1,0 +1,14 @@
+    def longestConsecutive(self, root):
+        if root is None:
+            return 0 
+        return self.maxPathLenUtil(root, root.val - 1, 0)
+        
+        
+    def maxPathLenUtil(self, root, previousVal, previousLongest):
+        if root is None:
+            return previousLongest
+        currentVal = root.val
+        if currentVal == previousVal + 1:
+            return max(self.maxPathLenUtil(root.left, currentVal,previousLongest + 1),  self.maxPathLenUtil(root.right, currentVal, previousLongest + 1) )
+        newPathLen = max(self.maxPathLenUtil(root.left, currentVal, 1),  self.maxPathLenUtil(root.right, currentVal, 1) )
+        return max(newPathLen, previousLongest)
